@@ -1,0 +1,10 @@
+{
+    "domain": "eventsensor",
+    "name": "Event sensor custom integration",
+    "documentation": "https://github.com/azogue/eventsensor",
+    "requirements": [],
+    "dependencies": [],
+    "codeowners": [
+        "@azogue"
+    ]
+}
