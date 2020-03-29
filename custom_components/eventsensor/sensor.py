@@ -95,8 +95,6 @@ class EventSensor(RestoreEntity):
 
     async def async_added_to_hass(self) -> None:
         """Add event listener when adding entity to Home Assistant."""
-        await super().async_added_to_hass()
-
         # Recover last state
         last_state = await self.async_get_last_state()
         if last_state is not None:
@@ -131,5 +129,3 @@ class EventSensor(RestoreEntity):
         if self._event_listener is not None:
             self._event_listener()
             self._event_listener = None
-
-        await super().async_will_remove_from_hass()

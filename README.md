@@ -1,5 +1,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
+<br><a href="https://www.buymeacoffee.com/azogue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" width="150px" height="35px" alt="Buy Me A Coffee" style="height: 35px !important;width: 150px !important;" ></a>
+
 # Event sensor
 
 Custom integration to create sensors that track, represent and store specific **events** in Home Assistant.
@@ -17,19 +19,19 @@ Place the `custom_components` folder in your configuration directory
 Once installed add to your configuration the desired sensors like this one
 (a [Hue tap switch](https://www2.meethue.com/en-us/p/hue-tap-switch/046677473365) integrated in HA via [deCONZ integration](https://www.home-assistant.io/integrations/deconz/))
 
-```
+```yaml
 sensor:
   - platform: eventsensor
     name: Tap switch last press
     event: deconz_event
+    event_data:
+      unique_id: 00:00:00:00:00:45:51:23
     state: event
     state_map:
       34: 1_click
       16: 2_click
       17: 3_click
       18: 4_click
-    event_data:
-      unique_id: 00:00:00:00:00:45:51:23
 ```
 
 * Optionally filter events with key-value pairs inside the event data (like identifiers for item generating the event).
@@ -56,6 +58,16 @@ When some event that matches the filters is received, the sensor is updated:
 ```
 
 Making the sensor state equal to "2_click".
+
+#### Sensor Configuration
+
+key | optional | type | default | description
+-- | -- | -- | -- | --
+`name` | False | string | | Name for the event sensor
+`event` | False | string | | Name of the event to track.
+`event_data` | True | dict | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events.
+`state` | False | string | | Event data key used for the sensor state.
+`state_map` | True | map | | State conversion from raw data in event to desired state.
 
 ## TODO
 
