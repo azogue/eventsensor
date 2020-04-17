@@ -2,6 +2,7 @@
 import logging
 
 import voluptuous as vol
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
     CONF_EVENT,
@@ -104,7 +105,6 @@ class EventSensor(RestoreEntity):
         @callback
         def async_update_sensor(event: Event):
             """Update state when event is received."""
-            _LOGGER.debug("%s: Event received -> %s", self.entity_id, event)
             if self._event_data.items() < event.data.items():
                 new_state = event.data[self._state_key]
                 if new_state in self._state_map:
