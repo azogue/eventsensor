@@ -32,7 +32,7 @@ _EVENT_SOURCE_DECONZ = "deCONZ"
 _EVENT_SOURCE_GENERIC = "Any other"
 _IDENTIFIER_ID = "id"
 _IDENTIFIER_UNIQUE_ID = "uniqueid"
-_PRESET_GENERIC = "generic event source"
+_PRESET_GENERIC = "Custom state mapping"
 
 STEP_1_INITIAL = vol.Schema(
     {
