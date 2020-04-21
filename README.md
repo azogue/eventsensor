@@ -45,6 +45,10 @@ Go to the Integrations menu, look for `EventSensor`, and start the wizard.
 
    Follow the instructions to introduce the mapping as a text in that field, as pairs between commas, with the syntax: `code: state1, code2: state2, code3: state3`.
 
+![step 1](rsc/config_flow_step_1.png)  | ![step 2](rsc/config_flow_step_2.png) | ![step 3](rsc/config_flow_step_3.png)
+:---:|:---:|:---:
+
+
 #### Generic sensor definition
 
 * When "Any other" is selected in step 1, the next step shows a full manual configuration for the sensor.
@@ -52,6 +56,7 @@ Go to the Integrations menu, look for `EventSensor`, and start the wizard.
 * For any loaded event sensor, the Options menu is available to show or **edit** all sensor parameters,
   so any change in the sensor definition can be made without removing + adding a new one, and of course without any HA restart.
 
+![options_flow](rsc/options_flow.png)
 
 ### Manual yaml config
 
