@@ -1,6 +1,16 @@
 [flake8]
 application-import-names = homeassistant,eventsensor
-import-order-style = smarkets
+import-order-style = cryptography
 inline-quotes = double
-max-complexity = 15
+max-complexity = 10
 multiline-quotes = double
+max-line-length = 88
+# W503: Line break occurred before a binary operator
+# E203: Whitespace before ':'
+# D202 No blank lines allowed after function docstring
+# W504 line break after binary operator
+ignore =
+    W503,
+    E203,
+    D202,
+    W504

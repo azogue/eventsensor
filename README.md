@@ -1,5 +1,5 @@
 ![Validate with hassfest](https://github.com/azogue/eventsensor/workflows/Validate%20with%20hassfest/badge.svg?branch=master)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 <br><a href="https://www.buymeacoffee.com/azogue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" width="150px" height="35px" alt="Buy Me A Coffee" style="height: 35px !important;width: 150px !important;" ></a>
@@ -117,8 +117,3 @@ key | optional | type | default | description
 `event_data` | True | dict | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events.
 `state` | False | string | | Event data key used for the sensor state.
 `state_map` | True | map | | State conversion from raw data in event to desired state.
-
-## TODO
-
-- [ ] Inclusion as [HACS](https://hacs.xyz/) **default** integration (manual addition to HACS is already possible)
-- [ ] Config flow to define these sensors via UI, so it could be used easily for debug purposes without any HA restart.
