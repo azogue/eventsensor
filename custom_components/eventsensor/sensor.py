@@ -84,12 +84,9 @@ async def async_setup_entry(
     async_add_entities([EventSensor(config_entry.data)], False)
 
     # add an update listener to enable edition by OptionsFlow
-    if config_entry.entry_id not in hass.data[DOMAIN_DATA]:
-        hass.data[DOMAIN_DATA][
-            config_entry.entry_id
-        ] = config_entry.add_update_listener(update_listener)
-    else:
-        _LOGGER.warning("Already has a listener, is an update??")
+    hass.data[DOMAIN_DATA][config_entry.entry_id] = config_entry.add_update_listener(
+        update_listener
+    )
 
 
 async def update_listener(hass: HomeAssistantType, entry: ConfigEntry):
@@ -97,10 +94,8 @@ async def update_listener(hass: HomeAssistantType, entry: ConfigEntry):
     changes = len(entry.options) > 1 and entry.data != entry.options
     if changes:
         # update entry replacing data with new options, and updating unique_id and title
-        _LOGGER.critical(
-            f"ON UPDATE IN PLATFORM: {entry.data} VS {entry.options}\n"
-            f"* data id={make_unique_id(entry.data)}\n"
-            f"* opts id={make_unique_id(entry.options)}"
+        _LOGGER.debug(
+            f"Config entry update with {entry.options} and unique_id:{entry.unique_id}"
         )
         hass.config_entries.async_update_entry(
             entry,
@@ -198,10 +193,10 @@ class EventSensor(RestoreEntity):
             self._event, async_update_sensor
         )
         _LOGGER.debug(
-            "%s: Added sensor listening to '%s' with unique_id:%s",
+            "%s: Added sensor listening to '%s' with event data: %s",
             self.entity_id,
             self._event,
-            self.unique_id,
+            self._event_data,
         )
 
     async def async_will_remove_from_hass(self):
@@ -209,4 +204,4 @@ class EventSensor(RestoreEntity):
         if self._event_listener is not None:
             self._event_listener()
             self._event_listener = None
-        _LOGGER.debug("%s: Removing event listener", self.entity_id)
+            _LOGGER.debug("%s: Removed event listener", self.entity_id)
