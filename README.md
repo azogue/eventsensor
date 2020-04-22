@@ -1,5 +1,5 @@
 ![Validate with hassfest](https://github.com/azogue/eventsensor/workflows/Validate%20with%20hassfest/badge.svg?branch=master)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 <br><a href="https://www.buymeacoffee.com/azogue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" width="150px" height="35px" alt="Buy Me A Coffee" style="height: 35px !important;width: 150px !important;" ></a>
@@ -13,10 +13,47 @@ but could be useful in other scenarios where some specific event needs to be tra
 
 ## Installation
 
+### HACS _(preferred method)_
+
+**Add the integration in [HACS](https://hacs.xyz/)** and start using it without any HA restart :)
+
+### Manual install
+
 Place the `custom_components` folder in your configuration directory
 (or add its contents to an existing `custom_components` folder).
 
 ## Configuration
+
+2 ways of configuration are implemented: **via UI** from the Integrations menu,
+and, as _legacy mode_, via manual YAML config as a _sensor platform_.
+
+Sensors configured manually in YAML will log a deprecation warning, advising to remove the yaml,
+after importing them to config entries handled via Integrations UI.
+
+### Wizard for UI config _(preferred method)_
+
+Go to the Integrations menu, look for `EventSensor`, and start the wizard.
+
+1. Set a name for the sensor and a HA integration as source for the events to listen for.
+  For _Friends of Hue_ remotes, select "Hue" or "deCONZ" to preconfigure the event sensor. Select "Any other" otherwise.
+2. If Hue or deCONZ are selected, use step 2 to set a unique identifier to filter events for an specific device. Leave that field empty to create a sensor showing button presses for all devices. 2 options are shown, filter by `id` or by `unique_id`:
+   * `id` is the _slugified_ version of the given name for the device, so for a Hue dimmer battery sensor named `sensor.hue_dimmer_kitchen_battery_level`, the `id` would be "hue_dimmer_kitchen".
+   * `unique_id` is serial number of the device, (example: "00:17:88:01:10:3e:3a:dc-02-fc00").
+
+   Last field is to select one of the pre-configured state mappings for Hue remotes. Set it as "Custom state mapping" to define your own.
+3. Use the last step to review or customize the optional state mapping and confirm the sensor creation.
+
+   Follow the instructions to introduce the mapping as a text in that field, as pairs between commas, with the syntax: `code: state1, code2: state2, code3: state3`.
+
+#### Generic sensor definition
+
+* When "Any other" is selected in step 1, the next step shows a full manual configuration for the sensor.
+
+* For any loaded event sensor, the Options menu is available to show or **edit** all sensor parameters,
+  so any change in the sensor definition can be made without removing + adding a new one, and of course without any HA restart.
+
+
+### Manual yaml config
 
 Once installed add to your yaml configuration the desired sensors like in the next examples.
 
@@ -116,9 +153,4 @@ key | optional | type | default | description
 `event` | False | string | | Name of the event to track.
 `event_data` | True | dict | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events.
 `state` | False | string | | Event data key used for the sensor state.
-`state_map` | True | map | | State conversion from raw data in event to desired state.
-
-## TODO
-
-- [ ] Inclusion as [HACS](https://hacs.xyz/) **default** integration (manual addition to HACS is already possible)
-- [ ] Config flow to define these sensors via UI, so it could be used easily for debug purposes without any HA restart.
+`state_map` | True | dict | | State conversion from raw data in event to desired state.

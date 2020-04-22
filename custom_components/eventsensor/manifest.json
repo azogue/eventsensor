@@ -1,6 +1,7 @@
 {
     "domain": "eventsensor",
-    "name": "Event sensor custom integration",
+    "name": "EventSensor",
+    "config_flow": true,
     "documentation": "https://github.com/azogue/eventsensor",
     "requirements": [],
     "dependencies": [],

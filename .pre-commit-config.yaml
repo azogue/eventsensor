@@ -15,7 +15,6 @@ repos:
     hooks:
       - id: flake8
         name: Lint code (flake8)
-        args: ['--ignore=W503,PIE782']
         additional_dependencies:
           - flake8==3.7.9
           - flake8-broken-line==0.1.1
