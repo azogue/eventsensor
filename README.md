@@ -170,7 +170,8 @@ sensor:
       scene.evening_light: Evening
       scene.afternoon_light: Afternoon
       scene.other: Other scene
-      # ...```
+      # ...
+```
 
 #### Sensor Configuration
 
