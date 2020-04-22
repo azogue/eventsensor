@@ -17,7 +17,9 @@ from .common import (
     PRESET_HUE_DIMMER_MAPPING,
     PRESET_HUE_TAP,
     PRESET_HUE_TAP_MAPPING,
+    make_string_ui_from_dict,
     make_unique_id,
+    parse_dict_from_ui_string,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -63,28 +65,6 @@ STEP_2_GENERIC_SCHEMA = vol.Schema(
 )
 
 
-def _from_str_to_dict(raw_data: str) -> dict:
-    """Assume format `key1: value1, key2: value2, ...`."""
-    raw_pairs = raw_data.split(",")
-
-    def _parse_key(raw_key: str):
-        return raw_key.lstrip(" ").rstrip(" ").rstrip(":")
-
-    data = {}
-    for pair in raw_pairs:
-        if ":" not in pair:
-            break
-        key, value = pair.split(":", maxsplit=1)
-        data[_parse_key(key)] = _parse_key(value)
-
-    return data
-
-
-def _from_dict_to_str(data: dict) -> str:
-    """Assume format `key1: value1, key2: value2, ...`."""
-    return ", ".join([f"{key}: {value}" for key, value in data.items()])
-
-
 @config_entries.HANDLERS.register(DOMAIN)
 class EventSensorFlowHandler(config_entries.ConfigFlow):
     """Config flow for eventsensor."""
@@ -115,6 +95,13 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
         }
 
         return self.async_create_entry(title=name, data=entry_data)
+
+    def _parse_dict_fields(self, user_input, field):
+        field_map = {}
+        raw_field_map = user_input.get(field)
+        if raw_field_map:
+            field_map = parse_dict_from_ui_string(raw_field_map)
+        self._data_steps_config[field] = field_map
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
@@ -166,19 +153,8 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
         if user_input is not None:
             self._data_steps_config[CONF_EVENT] = user_input.get(CONF_EVENT)
             self._data_steps_config[CONF_STATE] = user_input.get(CONF_STATE)
-
-            filter_map = {}
-            raw_filter_map = user_input.get(CONF_EVENT_DATA)
-            if raw_filter_map:
-                filter_map = _from_str_to_dict(raw_filter_map)
-            self._data_steps_config[CONF_EVENT_DATA] = filter_map
-
-            state_map = {}
-            raw_state_map = user_input.get(CONF_STATE_MAP)
-            if raw_state_map:
-                state_map = _from_str_to_dict(raw_state_map)
-            self._data_steps_config[CONF_STATE_MAP] = state_map
-
+            self._parse_dict_fields(user_input, CONF_EVENT_DATA)
+            self._parse_dict_fields(user_input, CONF_STATE_MAP)
             return await self._create_entry()
 
         return self.async_show_form(
@@ -188,15 +164,10 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
     async def async_step_state_mapping(self, user_input=None):
         """Handle a flow initialized by the user."""
         if user_input is not None:
-            state_map = {}
-            raw_state_map = user_input.get(CONF_STATE_MAP)
-            if raw_state_map:
-                state_map = _from_str_to_dict(raw_state_map)
-            self._data_steps_config[CONF_STATE_MAP] = state_map
-
+            self._parse_dict_fields(user_input, CONF_STATE_MAP)
             return await self._create_entry()
 
-        state_map_ui = _from_dict_to_str(
+        state_map_ui = make_string_ui_from_dict(
             self._data_steps_config.get(CONF_STATE_MAP, {})
         )
         return self.async_show_form(
@@ -234,7 +205,7 @@ class EventSensorOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             # Inverse conversion for mappings shown as strings
             for c in (CONF_EVENT_DATA, CONF_STATE_MAP):
-                user_input[c] = _from_str_to_dict(user_input[c])
+                user_input[c] = parse_dict_from_ui_string(user_input[c])
 
             new_unique_id = make_unique_id(user_input)
             if self.config_entry.unique_id != new_unique_id:
@@ -256,8 +227,8 @@ class EventSensorOptionsFlowHandler(config_entries.OptionsFlow):
         name = container.get(CONF_NAME)
         event = container.get(CONF_EVENT)
         state = container.get(CONF_STATE)
-        filter_ev_str = _from_dict_to_str(container.get(CONF_EVENT_DATA))
-        state_map_str = _from_dict_to_str(container.get(CONF_STATE_MAP))
+        filter_ev_str = make_string_ui_from_dict(container.get(CONF_EVENT_DATA, {}))
+        state_map_str = make_string_ui_from_dict(container.get(CONF_STATE_MAP, {}))
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(

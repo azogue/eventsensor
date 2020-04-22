@@ -17,7 +17,14 @@ from homeassistant.helpers.typing import (
     HomeAssistantType,
 )
 
-from .common import CONF_STATE_MAP, DOMAIN, DOMAIN_DATA, make_unique_id
+from .common import (
+    CONF_STATE_MAP,
+    DOMAIN,
+    DOMAIN_DATA,
+    extract_state_from_event,
+    make_unique_id,
+    parse_numbers,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -70,18 +77,7 @@ async def async_setup_entry(
     if DOMAIN_DATA not in hass.data:
         hass.data[DOMAIN_DATA] = {}
 
-    _LOGGER.info(
-        f"[{config_entry.unique_id}] Entry setup with {config_entry.data} "
-        f"// {config_entry.options}"
-    )
-
-    if config_entry.entry_id in hass.data[DOMAIN_DATA]:
-        _LOGGER.warning("Already in, is an update??")
-        hass.config_entries.async_update_entry(
-            config_entry, options=config_entry.options
-        )
-
-    async_add_entities([EventSensor(config_entry.data)], False)
+    async_add_entities([EventSensor(config_entry.unique_id, config_entry.data)], False)
 
     # add an update listener to enable edition by OptionsFlow
     hass.data[DOMAIN_DATA][config_entry.entry_id] = config_entry.add_update_listener(
@@ -113,32 +109,15 @@ class EventSensor(RestoreEntity):
     should_poll = False
     icon = "mdi:bullseye-arrow"
 
-    def __init__(self, sensor_data: dict):
+    def __init__(self, unique_id: str, sensor_data: dict):
         """Set up a new sensor mirroring some event."""
+        self._unique_id = unique_id
         self._name = sensor_data.get(CONF_NAME)
         self._event = sensor_data.get(CONF_EVENT)
         self._state_key = sensor_data.get(CONF_STATE)
+        self._event_data = parse_numbers(sensor_data.get(CONF_EVENT_DATA, {}))
+        self._state_map = parse_numbers(sensor_data.get(CONF_STATE_MAP, {}))
 
-        def _parse_field(raw_key: str):
-            """Enable numerical values, like press codes for remotes."""
-            try:
-                return int(raw_key)
-            except ValueError:
-                try:
-                    return float(raw_key)
-                except ValueError:
-                    return raw_key
-
-        self._event_data = {
-            _parse_field(key): _parse_field(value)
-            for key, value in sensor_data.get(CONF_EVENT_DATA, {}).items()
-        }
-        self._state_map = {
-            _parse_field(key): _parse_field(value)
-            for key, value in sensor_data.get(CONF_STATE_MAP, {}).items()
-        }
-
-        self._unique_id = make_unique_id(sensor_data)
         self._event_listener = None
         self._state = None
         self._attributes = {}
@@ -174,8 +153,12 @@ class EventSensor(RestoreEntity):
         @callback
         def async_update_sensor(event: Event):
             """Update state when event is received."""
-            if self._event_data.items() < event.data.items():
-                new_state = event.data[self._state_key]
+            # TODO make better filter looking at sub-nested data
+            if self._event_data.items() <= event.data.items():
+                # Extract new state
+                new_state = extract_state_from_event(self._state_key, event.data)
+
+                # Apply custom state mapping
                 if new_state in self._state_map:
                     new_state = self._state_map[new_state]
 
