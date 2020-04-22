@@ -59,12 +59,7 @@ def make_unique_id(sensor_data: dict) -> str:
     """
     Generate an unique id from the listened event + data filters.
 
-    Used for both the generated sensor entity and the config entry.
-
-    call_service_domain_scene_service_turn_on_service_data.entity_id_scene_evening_light_evening_scene_afternoon_light_afternoon_scene_other_other_scene
-    call_service_domain_scene_service_turn_on_service_data.entity_id_scene_evening_light_evening_scene_afternoon_light_afternoon_scene_other_other_scene
-    call_service_domain_scene_service_turn_on_service_data.entity_id_scene_evening_light_evening_scene_afternoon_light_afternoon_scene_other_other_scene
-
+    Used for both the the config entry and the sensor entity.
     """
     event: str = sensor_data.get(CONF_EVENT)
     state: str = sensor_data.get(CONF_STATE)
