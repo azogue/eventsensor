@@ -150,6 +150,28 @@ sensor:
     state: mac
 ```
 
+#### A sensor to retain the last activated scene
+
+By listen to `call_service` when `domain: scene, service: turn_on`,
+using dot notation to use the activated scene as the sensor state
+with `state: service_data.entity_id`, and then map the scene entities with pretty names
+for the sensor.
+
+```yaml
+sensor:
+  - platform: eventsensor
+    name: Last scene
+    event: call_service
+    state: service_data.entity_id
+    event_data:
+      domain: scene
+      service: turn_on
+    state_map:
+      scene.evening_light: Evening
+      scene.afternoon_light: Afternoon
+      scene.other: Other scene
+      # ...```
+
 #### Sensor Configuration
 
 key | optional | type | default | description
