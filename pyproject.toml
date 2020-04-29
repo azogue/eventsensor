@@ -1,16 +1,19 @@
 [tool.poetry]
 name = "eventsensor"
-version = "2.0.0"
+version = "2.1.0"
 description = "HomeAssistant custom sensor to track specific events"
 authors = ["Eugenio Panadero <eugenio.panadero@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+homeassistant = "^0.109.0"
+pre-commit = "^2.2.0"
 
 [tool.poetry.dev-dependencies]
 
 [tool.black]
+line_length = 88
 target_version = ["py37", "py38"]
 
 [build-system]
