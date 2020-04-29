@@ -4,7 +4,7 @@
   "domains": [
     "sensor"
   ],
-  "homeassistant": "0.107.0",
+  "homeassistant": "0.109.0",
   "iot_class": "Local Push",
   "render_readme": true
 }
