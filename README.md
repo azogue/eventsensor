@@ -174,7 +174,7 @@ sensor:
       # ...
 ```
 
-#### Sensor Configuration
+## Sensor Configuration
 
 key | optional | type | default | description
 -- | -- | -- | -- | --
@@ -183,3 +183,42 @@ key | optional | type | default | description
 `event_data` | True | dict | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events.
 `state` | False | string | | Event data key used for the sensor state.
 `state_map` | True | dict | | State conversion from raw data in event to desired state.
+
+### Listening to events with nested data
+
+For both the `event_data` and the desired sensor `state`, the _dot.notation_ can be used to point to nested keys in the event data, so, for an event like:
+
+```json
+{
+    "event_type": "netatmo_event",
+    "data": {
+        "type": "movement",
+        "data": {
+            "user_id": "x",
+            "snapshot_id": "x",
+            "snapshot_key": "x",
+            "snapshot_url": "x",
+            "event_type": "movement",
+            "camera_id": "ma:ca:dr:es:sx:xx",
+            "device_id": "ma:ca:dr:es:sx:xx",
+            "home_id": "x",
+            "home_name": "x",
+            "event_id": "x",
+            "message": "Bewegung von Camera Treppenhaus erkannt",
+            "push_type": "NACamera-movement"
+        }
+    },
+    "origin": "LOCAL",
+    "time_fired": "2020-07-25T09:12:49.580668+00:00",
+    "context": {
+        "id": "x",
+        "parent_id": null,
+        "user_id": null
+    }
+}
+```
+
+To filter with the `type` and the `device_id` value, and create the state with the `push_type` data, the configuration in UI would be as follows:
+
+* Event field: `data.push_type`
+* Event filter: `type: movement, data.device_id: ma:ca:dr:es:sx:xx`
