@@ -185,3 +185,38 @@ def parse_dict_from_ui_string(str_use) -> dict:
         _walk_nested_dict(data, substitutions)
 
     return data
+
+
+def check_dict_is_contained_in_another(filter_data: dict, data: dict) -> bool:
+    """
+    Check if a dict is contained in another one.
+
+    * Works with nested dicts by using _dot notation_ in the filter_data keys
+      so a filter with
+      `{"base_key.sub_key": "value"}`
+      will look for dicts containing
+      `{"base_key": {"sub_key": "value"}}`
+    """
+    for key, value in filter_data.items():
+        if key in data:
+            if data[key] != value:
+                return False
+            continue
+
+        if "." in key:
+            base_key, sub_key = key.split(".", maxsplit=1)
+            if base_key not in data:
+                return False
+
+            base_value = data[base_key]
+            if not isinstance(base_value, dict):
+                return False
+
+            if not check_dict_is_contained_in_another({sub_key: value}, base_value):
+                return False
+
+            continue
+
+        return False
+
+    return True

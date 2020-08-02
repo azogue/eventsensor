@@ -21,6 +21,7 @@ from .common import (
     CONF_STATE_MAP,
     DOMAIN,
     DOMAIN_DATA,
+    check_dict_is_contained_in_another,
     extract_state_from_event,
     make_unique_id,
     parse_numbers,
@@ -153,8 +154,7 @@ class EventSensor(RestoreEntity):
         @callback
         def async_update_sensor(event: Event):
             """Update state when event is received."""
-            # TODO make better filter looking at sub-nested data
-            if self._event_data.items() <= event.data.items():
+            if check_dict_is_contained_in_another(self._event_data, event.data):
                 # Extract new state
                 new_state = extract_state_from_event(self._state_key, event.data)
 
