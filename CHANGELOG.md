@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.2.0](https://github.com/azogue/eventsensor/tree/v2.2.0) (2020-08-02)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v2.1.0...v2.2.0)
+
+**Implemented enhancements:**
+
+- Better filter of event_data, using `dot.notation` for nested keys.
+- Add default mapping templates for Aqara Smart Button and Aqara Cube.
+
 ## [v2.1.0](https://github.com/azogue/eventsensor/tree/v2.1.0) (2020-04-29)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v2.0.0...v2.1.0)

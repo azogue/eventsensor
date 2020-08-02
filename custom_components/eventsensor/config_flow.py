@@ -11,6 +11,10 @@ from homeassistant.helpers.event import EVENT_STATE_CHANGED
 from .common import (
     CONF_STATE_MAP,
     DOMAIN,
+    PRESET_AQARA_CUBE,
+    PRESET_AQARA_CUBE_MAPPING,
+    PRESET_AQARA_SMART_BUTTON,
+    PRESET_AQARA_SMART_BUTTON_MAPPING,
     PRESET_FOH,
     PRESET_FOH_MAPPING,
     PRESET_HUE_DIMMER,
@@ -51,7 +55,14 @@ STEP_2_PRECONFIGURED = vol.Schema(
         ),
         vol.Optional(CONF_IDENTIFIER, default=""): str,
         vol.Required(CONF_PRESET_CONFIG, default=PRESET_HUE_DIMMER): vol.In(
-            [PRESET_HUE_DIMMER, PRESET_HUE_TAP, PRESET_FOH, _PRESET_GENERIC]
+            [
+                PRESET_HUE_DIMMER,
+                PRESET_HUE_TAP,
+                PRESET_FOH,
+                PRESET_AQARA_SMART_BUTTON,
+                PRESET_AQARA_CUBE,
+                _PRESET_GENERIC,
+            ]
         ),
     },
 )
@@ -142,6 +153,11 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
                 preset_map = PRESET_HUE_TAP_MAPPING
             elif preset_config == PRESET_FOH:
                 preset_map = PRESET_FOH_MAPPING
+            elif preset_config == PRESET_AQARA_SMART_BUTTON:
+                preset_map = PRESET_AQARA_SMART_BUTTON_MAPPING
+            elif preset_config == PRESET_AQARA_CUBE:
+                preset_map = PRESET_AQARA_CUBE_MAPPING
+                self._data_steps_config[CONF_STATE] = "gesture"
             self._data_steps_config[CONF_STATE_MAP] = preset_map
 
             return await self.async_step_state_mapping()
