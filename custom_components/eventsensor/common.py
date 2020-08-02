@@ -11,6 +11,29 @@ DOMAIN_DATA = f"{DOMAIN}_data"
 
 CONF_STATE_MAP = "state_map"
 
+PRESET_AQARA_CUBE = "Aqara Cube"
+PRESET_AQARA_CUBE_MAPPING = {
+    0: "Wake",
+    1: "Shake",
+    2: "Drop",
+    3: "Flip90",
+    4: "Flip180",
+    5: "Push",
+    6: "DoubleTap",
+    7: "RotCW",
+    8: "RotCCW",
+}
+PRESET_AQARA_SMART_BUTTON = "Aqara Smart Button"
+PRESET_AQARA_SMART_BUTTON_MAPPING = {
+    1000: "click",
+    1001: "hold",
+    1002: "click_up",
+    1003: "hold_up",
+    1004: "2_click",
+    1005: "3_click",
+    1006: "4_click",
+    1010: "5_click",
+}
 PRESET_FOH = "FoH Switch"
 PRESET_FOH_MAPPING = {
     16: "left_upper_press",
