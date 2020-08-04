@@ -1,11 +1,9 @@
 {
-    "domain": "eventsensor",
-    "name": "EventSensor",
-    "config_flow": true,
-    "documentation": "https://github.com/azogue/eventsensor",
-    "requirements": [],
-    "dependencies": [],
-    "codeowners": [
-        "@azogue"
-    ]
+  "domain": "eventsensor",
+  "name": "EventSensor",
+  "config_flow": true,
+  "documentation": "https://github.com/azogue/eventsensor",
+  "requirements": ["pydash"],
+  "dependencies": [],
+  "codeowners": ["@azogue"]
 }

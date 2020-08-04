@@ -1,8 +1,10 @@
 """Constants for eventsensor."""
 import re
+from pydash import get
 
 from homeassistant.const import CONF_EVENT, CONF_EVENT_DATA, CONF_STATE
 from homeassistant.util import slugify
+
 
 # Base component constants
 DOMAIN = "eventsensor"
@@ -111,22 +113,11 @@ def extract_state_from_event(state_key: str, event_data: dict):
     """
     Extract information from the event data to make a new sensor state.
 
-    Use 'dot syntax' to point for nested attributes, like `service_data.entity_id`
+    Use pydash string path for nested data.
+    https://pydash.readthedocs.io/en/latest/api.html#pydash.objects.get
     """
-    if state_key in event_data:
-        return event_data[state_key]
-    elif state_key.split(".")[0] in event_data:
-        try:
-            nested_data = event_data
-            for level in state_key.split("."):
-                nested_data = nested_data[level]
-            # Don't use dicts as state!
-            if isinstance(nested_data, dict):
-                return str(nested_data)
-            return nested_data
-        except (IndexError, TypeError):
-            pass
-    return "bad_state"
+    result = str(get(event_data, state_key, "bad_state"))
+    return result
 
 
 # Workaround lack of UI input field to edit yaml inside a ConfigFlow -> string repr

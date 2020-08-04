@@ -7,64 +7,86 @@
 
 # Event sensor
 
-Custom integration to create sensors that track, represent and store specific Home Assistant **events**.
+Custom integration to create sensors that track, represent and store specific
+Home Assistant **events**.
 
-Created to assign HA entities for ZigBee switches that only generate events when pressed,
-but could be useful in other scenarios where some specific event needs to be tracked.
+Created to assign HA entities for ZigBee switches that only generate events when
+pressed, but could be useful in other scenarios where some specific event needs
+to be tracked.
 
 ## Installation
 
 ### HACS _(preferred method)_
 
-**Add the integration in [HACS](https://hacs.xyz/)** and start using it without any HA restart :)
+**Add the integration in [HACS](https://hacs.xyz/)** and start using it without
+any HA restart :)
 
 ### Manual install
 
-Place the `custom_components` folder in your configuration directory
-(or add its contents to an existing `custom_components` folder).
+Place the `custom_components` folder in your configuration directory (or add its
+contents to an existing `custom_components` folder).
 
 ## Configuration
 
 2 ways of configuration are implemented: **via UI** from the Integrations menu,
 and, as _legacy mode_, via manual YAML config as a _sensor platform_.
 
-Sensors configured manually in YAML will log a deprecation warning, advising to remove the yaml,
-after importing them to config entries handled via Integrations UI.
+Sensors configured manually in YAML will log a deprecation warning, advising to
+remove the yaml, after importing them to config entries handled via Integrations
+UI.
 
 ### Wizard for UI config _(preferred method)_
 
 Go to the Integrations menu, look for `EventSensor`, and start the wizard.
 
-1. Set a name for the sensor and a HA integration as source for the events to listen for.
-  For _Friends of Hue_ remotes, select "Hue" or "deCONZ" to preconfigure the event sensor. Select "Any other" otherwise.
-2. If Hue or deCONZ are selected, use step 2 to set a unique identifier to filter events for an specific device. Leave that field empty to create a sensor showing button presses for all devices. 2 options are shown, filter by `id` or by `unique_id`:
-   * `id` is the _slugified_ version of the given name for the device, so for a Hue dimmer battery sensor named `sensor.hue_dimmer_kitchen_battery_level`, the `id` would be "hue_dimmer_kitchen".
-   * `unique_id` is serial number of the device, (example: "00:17:88:01:10:3e:3a:dc-02-fc00").
+1. Set a name for the sensor and a HA integration as source for the events to
+   listen for. For _Friends of Hue_ remotes, select "Hue" or "deCONZ" to
+   preconfigure the event sensor. Select "Any other" otherwise.
+2. If Hue or deCONZ are selected, use step 2 to set a unique identifier to
+   filter events for an specific device. Leave that field empty to create a
+   sensor showing button presses for all devices. 2 options are shown, filter by
+   `id` or by `unique_id`:
 
-   Last field is to select one of the pre-configured state mappings for Hue remotes. Set it as "Custom state mapping" to define your own.
-3. Use the last step to review or customize the optional state mapping and confirm the sensor creation.
+   - `id` is the _slugified_ version of the given name for the device, so for a
+     Hue dimmer battery sensor named `sensor.hue_dimmer_kitchen_battery_level`,
+     the `id` would be "hue_dimmer_kitchen".
+   - `unique_id` is serial number of the device, (example:
+     "00:17:88:01:10:3e:3a:dc-02-fc00").
 
-   Follow the instructions to introduce the mapping as a text in that field, as pairs between commas, with the syntax: `code: state1, code2: state2, code3: state3`.
+   Last field is to select one of the pre-configured state mappings for Hue
+   remotes. Set it as "Custom state mapping" to define your own.
 
-![step 1](rsc/config_flow_step_1.png)  | ![step 2](rsc/config_flow_step_2.png) | ![step 3](rsc/config_flow_step_3.png)
-:---:|:---:|:---:
+3. Use the last step to review or customize the optional state mapping and
+   confirm the sensor creation.
+
+   Follow the instructions to introduce the mapping as a text in that field, as
+   pairs between commas, with the syntax:
+   `code: state1, code2: state2, code3: state3`.
+
+| ![step 1](rsc/config_flow_step_1.png) | ![step 2](rsc/config_flow_step_2.png) | ![step 3](rsc/config_flow_step_3.png) |
+| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
 
 
 #### Generic sensor definition
 
-* When "Any other" is selected in step 1, the next step shows a full manual configuration for the sensor.
+- When "Any other" is selected in step 1, the next step shows a full manual
+  configuration for the sensor.
 
-* For any loaded event sensor, the Options menu is available to show or **edit** all sensor parameters,
-  so any change in the sensor definition can be made without removing + adding a new one, and of course without any HA restart.
+- For any loaded event sensor, the Options menu is available to show or **edit**
+  all sensor parameters, so any change in the sensor definition can be made
+  without removing + adding a new one, and of course without any HA restart.
 
 ![options_flow](rsc/options_flow.png)
 
 ### Manual yaml config
 
-Once installed add to your yaml configuration the desired sensors like in the next examples.
+Once installed add to your yaml configuration the desired sensors like in the
+next examples.
 
-* Optionally filter events with key-value pairs inside the event data (like identifiers for item generating the event).
-* Optionally define a `state_map` to define custom states from the raw event data value.
+- Optionally filter events with key-value pairs inside the event data (like
+  identifiers for item generating the event).
+- Optionally define a `state_map` to define custom states from the raw event
+  data value.
 
 #### A [Hue tap switch](https://www2.meethue.com/en-us/p/hue-tap-switch/046677473365) integrated in HA via [deCONZ integration](https://www.home-assistant.io/integrations/deconz/)
 
@@ -87,19 +109,19 @@ When some event that matches the filters is received, the sensor is updated:
 
 ```json
 {
-    "event_type": "deconz_event",
-    "data": {
-        "id": "hue_tap_switch_1",
-        "unique_id": "00:00:00:00:00:45:51:23",
-        "event": 16
-    },
-    "origin": "LOCAL",
-    "time_fired": "2020-03-28T18:23:58.439746+00:00",
-    "context": {
-        "id": "298225779b1c42e7989eff0a62a4a34c",
-        "parent_id": null,
-        "user_id": null
-    }
+  "event_type": "deconz_event",
+  "data": {
+    "id": "hue_tap_switch_1",
+    "unique_id": "00:00:00:00:00:45:51:23",
+    "event": 16
+  },
+  "origin": "LOCAL",
+  "time_fired": "2020-03-28T18:23:58.439746+00:00",
+  "context": {
+    "id": "298225779b1c42e7989eff0a62a4a34c",
+    "parent_id": null,
+    "user_id": null
+  }
 }
 ```
 
@@ -138,10 +160,11 @@ sensor:
 
 #### A sensor to catch the event data when new devices are detected
 
-When the legacy `device_tracker` detects a new entity in the network
-it fires a specific event carrying the MAC address, host name and new entity_id.
+When the legacy `device_tracker` detects a new entity in the network it fires a
+specific event carrying the MAC address, host name and new entity_id.
 
-To make a sensor to retain that data until another new device is detected, use this:
+To make a sensor to retain that data until another new device is detected, use
+this:
 
 ```yaml
 sensor:
@@ -153,10 +176,10 @@ sensor:
 
 #### A sensor to retain the last activated scene
 
-By listen to `call_service` when `domain: scene, service: turn_on`,
-using dot notation to use the activated scene as the sensor state
-with `state: service_data.entity_id`, and then map the scene entities with pretty names
-for the sensor.
+By listen to `call_service` when `domain: scene, service: turn_on`, using dot
+notation to use the activated scene as the sensor state with
+`state: service_data.entity_id`, and then map the scene entities with pretty
+names for the sensor.
 
 ```yaml
 sensor:
@@ -176,49 +199,82 @@ sensor:
 
 ## Sensor Configuration
 
-key | optional | type | default | description
--- | -- | -- | -- | --
-`name` | False | string | | Name for the event sensor
-`event` | False | string | | Name of the event to track.
-`event_data` | True | dict | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events.
-`state` | False | string | | Event data key used for the sensor state.
-`state_map` | True | dict | | State conversion from raw data in event to desired state.
+| key          | optional | type   | default            | description                                                                        |
+| ------------ | -------- | ------ | ------------------ | ---------------------------------------------------------------------------------- |
+| `name`       | False    | string |                    | Name for the event sensor                                                          |
+| `event`      | False    | string |                    | Name of the event to track.                                                        |
+| `event_data` | True     | dict   | Empty (all events) | A dict with key-value pairs required in the event data, to filter specific events. |
+| `state`      | False    | string |                    | Event data key used for the sensor state.                                          |
+| `state_map`  | True     | dict   |                    | State conversion from raw data in event to desired state.                          |
 
 ### Listening to events with nested data
 
-For both the `event_data` and the desired sensor `state`, the _dot.notation_ can be used to point to nested keys in the event data, so, for an event like:
+For both the `event_data` and the desired sensor `state`, the _dot.notation_
+provided by
+[pydash](https://pydash.readthedocs.io/en/latest/api.html#pydash.objects.get)
+can be used to point to nested keys in the event data, so, for an event like:
 
 ```json
 {
-    "event_type": "netatmo_event",
+  "event_type": "netatmo_event",
+  "data": {
+    "type": "movement",
     "data": {
-        "type": "movement",
-        "data": {
-            "user_id": "x",
-            "snapshot_id": "x",
-            "snapshot_key": "x",
-            "snapshot_url": "x",
-            "event_type": "movement",
-            "camera_id": "ma:ca:dr:es:sx:xx",
-            "device_id": "ma:ca:dr:es:sx:xx",
-            "home_id": "x",
-            "home_name": "x",
-            "event_id": "x",
-            "message": "Bewegung von Camera Treppenhaus erkannt",
-            "push_type": "NACamera-movement"
-        }
-    },
-    "origin": "LOCAL",
-    "time_fired": "2020-07-25T09:12:49.580668+00:00",
-    "context": {
-        "id": "x",
-        "parent_id": null,
-        "user_id": null
+      "user_id": "x",
+      "snapshot_id": "x",
+      "snapshot_key": "x",
+      "snapshot_url": "x",
+      "event_type": "movement",
+      "camera_id": "ma:ca:dr:es:sx:xx",
+      "device_id": "ma:ca:dr:es:sx:xx",
+      "home_id": "x",
+      "home_name": "x",
+      "event_id": "x",
+      "message": "Bewegung von Camera Treppenhaus erkannt",
+      "push_type": "NACamera-movement"
     }
+  },
+  "origin": "LOCAL",
+  "time_fired": "2020-07-25T09:12:49.580668+00:00",
+  "context": {
+    "id": "x",
+    "parent_id": null,
+    "user_id": null
+  }
 }
 ```
 
-To filter with the `type` and the `device_id` value, and create the state with the `push_type` data, the configuration in UI would be as follows:
+To filter with the `type` and the `device_id` value, and create the state with
+the `push_type` data, the configuration in UI would be as follows:
 
-* Event field: `data.push_type`
-* Event filter: `type: movement, data.device_id: ma:ca:dr:es:sx:xx`
+- Event field: `data.push_type`
+- Event filter: `type: movement, data.device_id: ma:ca:dr:es:sx:xx`
+
+and event like:
+
+```json
+{
+  "event_type": "zha_event",
+  "data": {
+    "device_ieee": "ff:ff:00:0f:e7:fc:d0:fb",
+    "unique_id": "ff:ff:00:0f:e7:fc:d0:fb:1:0x0008",
+    "endpoint_id": 1,
+    "cluster_id": 8,
+    "command": "move_to_level_with_on_off",
+    "args": [0, 7]
+  },
+  "origin": "LOCAL",
+  "time_fired": "2020-08-04T17:45:51.622396+00:00",
+  "context": {
+    "id": "2730e954b8ff41caae123dc4f7bfc4b2",
+    "parent_id": null,
+    "user_id": null
+  }
+}
+```
+
+To filter with the `unique_id` value, and create the state with the first
+element of the `args` list, the configuration in UI would be as follows:
+
+- Event field: `args[0]`
+- Event filter: `unique_id: ff:ff:00:0f:e7:fc:d0:fb:1:0x0008`
