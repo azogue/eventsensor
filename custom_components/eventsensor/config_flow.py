@@ -22,7 +22,7 @@ from .common import (
     PRESET_HUE_DIMMER,
     PRESET_HUE_DIMMER_MAPPING,
     PRESET_HUE_TAP,
-    PRESET_HUE_TAP_MAPPING,    
+    PRESET_HUE_TAP_MAPPING,
     make_string_ui_from_dict,
     make_unique_id,
     parse_dict_from_ui_string,
