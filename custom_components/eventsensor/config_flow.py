@@ -17,6 +17,8 @@ from .common import (
     PRESET_AQARA_SMART_BUTTON_MAPPING,
     PRESET_FOH,
     PRESET_FOH_MAPPING,
+    PRESET_HUE_BUTTON,
+    PRESET_HUE_BUTTON_MAPPING,
     PRESET_HUE_DIMMER,
     PRESET_HUE_DIMMER_MAPPING,
     PRESET_HUE_TAP,
@@ -58,6 +60,7 @@ STEP_2_PRECONFIGURED = vol.Schema(
             [
                 PRESET_HUE_DIMMER,
                 PRESET_HUE_TAP,
+                PRESET_HUE_BUTTON,
                 PRESET_FOH,
                 PRESET_AQARA_SMART_BUTTON,
                 PRESET_AQARA_CUBE,
@@ -151,6 +154,8 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
                 preset_map = PRESET_HUE_DIMMER_MAPPING
             elif preset_config == PRESET_HUE_TAP:
                 preset_map = PRESET_HUE_TAP_MAPPING
+            elif preset_config == PRESET_HUE_BUTTON:
+                preset_map = PRESET_HUE_BUTTON_MAPPING
             elif preset_config == PRESET_FOH:
                 preset_map = PRESET_FOH_MAPPING
             elif preset_config == PRESET_AQARA_SMART_BUTTON:
