@@ -1,5 +1,6 @@
 """Event sensor."""
 import logging
+import asyncio
 from typing import Any, Callable, List
 
 import voluptuous as vol
@@ -122,6 +123,7 @@ class EventSensor(RestoreEntity):
         self._event_listener = None
         self._state = None
         self._attributes = {}
+        self._ms_threshold = 300
 
     @property
     def name(self):
@@ -142,6 +144,12 @@ class EventSensor(RestoreEntity):
     def state_attributes(self):
         """Return the state attributes."""
         return self._attributes
+
+    async def async_set_idle(self) -> None:
+        await asyncio.sleep(self._ms_threshold / 1000)
+        self._state = "idle"
+        _LOGGER.debug("%s: New state: %s", self.entity_id, self._state)
+        self.async_write_ha_state()
 
     async def async_added_to_hass(self) -> None:
         """Add event listener when adding entity to Home Assistant."""
@@ -170,6 +178,7 @@ class EventSensor(RestoreEntity):
                 }
                 _LOGGER.debug("%s: New state: %s", self.entity_id, self._state)
                 self.async_write_ha_state()
+                asyncio.ensure_future(self.async_set_idle())
 
         # Listen for event
         self._event_listener = self.hass.bus.async_listen(
