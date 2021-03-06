@@ -6,7 +6,13 @@ import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry, SOURCE_IMPORT
-from homeassistant.const import CONF_EVENT, CONF_EVENT_DATA, CONF_NAME, CONF_STATE
+from homeassistant.const import (
+    CONF_EVENT,
+    CONF_EVENT_DATA,
+    CONF_NAME,
+    CONF_STATE,
+    EVENT_STATE_CHANGED,
+)
 from homeassistant.core import callback
 from homeassistant.helpers.config_validation import string
 from homeassistant.helpers.event import Event
@@ -52,7 +58,7 @@ async def async_setup_platform(
 
     Left just to read deprecated manual configuration.
     """
-    if config:
+    if config and config.get(CONF_EVENT) != EVENT_STATE_CHANGED:
         hass.async_create_task(
             hass.config_entries.flow.async_init(
                 DOMAIN, data=config, context={"source": SOURCE_IMPORT}
@@ -64,6 +70,14 @@ async def async_setup_platform(
             "handled in the Integrations menu [Sensor %s, event: %s]",
             config.get(CONF_NAME),
             config.get(CONF_EVENT),
+        )
+
+    elif config and config.get(CONF_EVENT) == EVENT_STATE_CHANGED:
+        _LOGGER.error(
+            "Listen to the `%s` event is forbidden, "
+            "so the EventSensor '%s' won't be created :(",
+            EVENT_STATE_CHANGED,
+            config.get(CONF_NAME),
         )
 
     return True
