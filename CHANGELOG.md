@@ -1,11 +1,15 @@
 # Changelog
 
-## [v2.3.0](https://github.com/azogue/eventsensor/tree/v2.3.0) (2020-08-06)
+## [v2.4.0](https://github.com/azogue/eventsensor/tree/v2.4.0) (2021-03-07)
 
-[Full Changelog](https://github.com/azogue/eventsensor/compare/v2.2.0...v2.3.0)
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v2.2.0...v2.4.0)
 
-**Implemented enhancements:**
+**Changes:**
 
+- Disable listening to EVENT_STATE_CHANGED even with manual YAML.
+- Add version tag to hacs.json & manifest.json, and declare a zip release file.
+- Share event listeners for multiple sensors, and dispatch all event filters for each sensor derived from a specific event.
+- Parse boolean values in event data, so "true"/"false" are processed as expected.
 - Add default mapping templates for Philips Hue Smart Button.
 
 ## [v2.2.0](https://github.com/azogue/eventsensor/tree/v2.2.0) (2020-08-02)

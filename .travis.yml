@@ -1,0 +1,33 @@
+dist: bionic
+language: python
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pre-commit
+env:
+  - TEST_CMD="pre-commit run --all-files"
+install:
+  - pip install pre-commit
+  - pre-commit install-hooks
+script:
+  - $TEST_CMD
+
+matrix:
+  include:
+    - name: "lint"
+      python: 3.8
+
+before_deploy:
+  - cd custom_components/eventsensor
+  - zip -r eventsensor .
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  tag_name: $TRAVIS_TAG
+  name: $TRAVIS_TAG
+  file: eventsensor.zip
+  skip_cleanup: true
+  draft: true
+  prerelease: true
+  on:
+    tags: true

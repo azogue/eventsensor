@@ -3,9 +3,11 @@
     "name": "EventSensor",
     "config_flow": true,
     "documentation": "https://github.com/azogue/eventsensor",
+    "issue_tracker": "https://github.com/azogue/eventsensor/issues",
     "requirements": [],
     "dependencies": [],
     "codeowners": [
         "@azogue"
-    ]
+    ],
+    "version": "2.4.0"
 }

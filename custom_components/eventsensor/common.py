@@ -104,6 +104,10 @@ def parse_numbers(raw_item):
     if isinstance(raw_item, dict):
         return {parse_numbers(k): parse_numbers(v) for k, v in raw_item.items()}
 
+    if raw_item in ("true", "True", True):
+        return True
+    elif raw_item in ("false", "False", False):
+        return False
     try:
         return int(raw_item)
     except ValueError:
