@@ -4,10 +4,9 @@
   "domains": [
     "sensor"
   ],
-  "zip_release": true,
-  "filename": "eventsensor.zip",
+  "zip_release": false,
   "homeassistant": "0.109.0",
   "iot_class": "Local Push",
   "render_readme": true,
-  "version": "2.4.0"
+  "version": "2.4.1"
 }
