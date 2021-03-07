@@ -80,7 +80,7 @@ PRESET_HUE_BUTTON_MAPPING = {
     1000: "1_click",
     1001: "1_hold",
     1002: "1_click_up",
-    1003: "1_hold_up"
+    1003: "1_hold_up",
 }
 _rg_dict_extraction = re.compile(r"({[^{}]+})")
 
