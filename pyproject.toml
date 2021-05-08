@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "eventsensor"
-version = "2.4.1"
+version = "2.4.2"
 description = "HomeAssistant custom sensor to track specific events"
 authors = ["Eugenio Panadero <eugenio.panadero@gmail.com>"]
 license = "MIT"
@@ -17,5 +17,5 @@ line_length = 88
 target_version = ["py37", "py38"]
 
 [build-system]
-requires = ["poetry>=1.0.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
