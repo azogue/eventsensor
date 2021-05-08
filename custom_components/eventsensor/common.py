@@ -117,6 +117,15 @@ def parse_numbers(raw_item):
             return raw_item
 
 
+def _flatten_state(state):
+    """Reduce nested object to string."""
+    if isinstance(state, list):
+        return ",".join(map(_flatten_state, state))
+    elif isinstance(state, dict):
+        return ",".join(map(lambda x: ":".join(map(_flatten_state, x)), state.items()))
+    return str(state)
+
+
 # Workaround for state extraction from nested data in event
 def extract_state_from_event(state_key: str, event_data: dict):
     """
@@ -131,9 +140,9 @@ def extract_state_from_event(state_key: str, event_data: dict):
             nested_data = event_data
             for level in state_key.split("."):
                 nested_data = nested_data[level]
-            # Don't use dicts as state!
-            if isinstance(nested_data, dict):
-                return str(nested_data)
+            # Don't use dicts/lists as state!
+            if isinstance(nested_data, (dict, list)):
+                return _flatten_state(nested_data)
             return nested_data
         except (IndexError, TypeError):
             pass
