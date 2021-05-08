@@ -8,5 +8,5 @@
   "homeassistant": "0.109.0",
   "iot_class": "Local Push",
   "render_readme": true,
-  "version": "2.4.1"
+  "version": "2.4.2"
 }
