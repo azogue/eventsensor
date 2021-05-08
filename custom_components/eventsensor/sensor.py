@@ -244,7 +244,7 @@ class EventSensor(RestoreEntity):
             new_state = extract_state_from_event(self._state_key, event.data)
 
             # Apply custom state mapping
-            if new_state in self._state_map:
+            if self._state_map and new_state in self._state_map:
                 new_state = self._state_map[new_state]
 
             self._state = new_state
