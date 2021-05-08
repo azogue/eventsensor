@@ -91,8 +91,8 @@ def make_unique_id(sensor_data: dict) -> str:
 
     Used for both the the config entry and the sensor entity.
     """
-    event: str = sensor_data.get(CONF_EVENT)
-    state: str = sensor_data.get(CONF_STATE)
+    event: str = sensor_data[CONF_EVENT]
+    state: str = sensor_data[CONF_STATE]
     filter_event: dict = dict(sensor_data.get(CONF_EVENT_DATA, {}))
     state_map: dict = dict(sensor_data.get(CONF_STATE_MAP, {}))
     return "_".join([event, slugify(str(filter_event)), state, slugify(str(state_map))])
