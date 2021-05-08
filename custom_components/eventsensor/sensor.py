@@ -201,13 +201,13 @@ class EventSensor(RestoreEntity):
         self._dispatcher = dispatcher
         self._entry_id = entry_id
         self._unique_id = unique_id
-        self._name = sensor_data.get(CONF_NAME)
-        self._event = sensor_data.get(CONF_EVENT)
-        self._state_key = sensor_data.get(CONF_STATE)
+        self._name = sensor_data[CONF_NAME]
+        self._event = sensor_data[CONF_EVENT]
+        self._state_key = sensor_data[CONF_STATE]
         self._event_data = parse_numbers(sensor_data.get(CONF_EVENT_DATA, {}))
         self._state_map = parse_numbers(sensor_data.get(CONF_STATE_MAP, {}))
         self._state = None
-        self._attributes = {}
+        self._attributes: Dict[str, Any] = {}
 
     @property
     def name(self):
