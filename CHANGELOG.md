@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.4.2](https://github.com/azogue/eventsensor/tree/v2.4.2) (2021-05-08)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v2.4.1...v2.4.2)
+
+**Changes:**
+
+- Add "iot_class" to integration manifest
+- Fix scenario when extracted state is a list, by _flattening_ the complex object into a composed string.
+
 ## [v2.4.1](https://github.com/azogue/eventsensor/tree/v2.4.1) (2021-03-07)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v2.2.0...v2.4.1)
