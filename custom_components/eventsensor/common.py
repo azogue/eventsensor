@@ -50,7 +50,7 @@ PRESET_FOH_MAPPING = {
     99: "double_lower_release",
 }
 PRESET_HUE_DIMMER = "Hue Dimmer Switch"
-PRESET_HUE_DIMMER_MAPPING = {
+PRESET_HUE_DIMMER_MAPPING_V1 = {
     1000: "1_click",
     2000: "2_click",
     3000: "3_click",
@@ -68,6 +68,25 @@ PRESET_HUE_DIMMER_MAPPING = {
     3003: "3_hold_up",
     4003: "4_hold_up",
 }
+PRESET_HUE_DIMMER_V2 = "Hue Dimmer Switch (Hue v2)"
+PRESET_HUE_DIMMER_MAPPING_V2 = {
+    "initial_press-1": "1_click",
+    "initial_press-2": "2_click",
+    "initial_press-3": "3_click",
+    "initial_press-4": "4_click",
+    "repeat-1": "1_hold",
+    "repeat-2": "2_hold",
+    "repeat-3": "3_hold",
+    "repeat-4": "4_hold",
+    "short_release-1": "1_click_up",
+    "short_release-2": "2_click_up",
+    "short_release-3": "3_click_up",
+    "short_release-4": "4_click_up",
+    "long_release-1": "1_hold_up",
+    "long_release-2": "2_hold_up",
+    "long_release-3": "3_hold_up",
+    "long_release-4": "4_hold_up",
+}
 PRESET_HUE_TAP = "Hue Tap Switch"
 PRESET_HUE_TAP_MAPPING = {
     34: "1_click",
@@ -76,11 +95,18 @@ PRESET_HUE_TAP_MAPPING = {
     18: "4_click",
 }
 PRESET_HUE_BUTTON = "Hue Smart Button"
-PRESET_HUE_BUTTON_MAPPING = {
+PRESET_HUE_BUTTON_MAPPING_V1 = {
     1000: "1_click",
     1001: "1_hold",
     1002: "1_click_up",
     1003: "1_hold_up",
+}
+PRESET_HUE_BUTTON_V2 = "Hue Smart Button (Hue v2)"
+PRESET_HUE_BUTTON_MAPPING_V2 = {
+    "initial_press-1": "1_click",
+    "repeat-1": "1_hold",
+    "short_release-1": "1_click_up",
+    "long_release-1": "1_hold_up",
 }
 _rg_dict_extraction = re.compile(r"({[^{}]+})")
 

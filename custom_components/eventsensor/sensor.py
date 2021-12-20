@@ -240,7 +240,13 @@ class EventSensor(RestoreEntity):
         def async_update_sensor(event: Event):
             """Update state when a valid event is received."""
             # Extract new state
-            new_state = extract_state_from_event(self._state_key, event.data)
+            if "," in self._state_key:
+                new_state = "-".join(
+                    str(extract_state_from_event(state_key.strip(), event.data))
+                    for state_key in self._state_key.split(",")
+                )
+            else:
+                new_state = extract_state_from_event(self._state_key, event.data)
 
             # Apply custom state mapping
             if self._state_map and new_state in self._state_map:
