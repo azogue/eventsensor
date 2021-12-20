@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.0.0](https://github.com/azogue/eventsensor/tree/v3.0.0) (2021-12-20)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v2.4.2...v3.0.0)
+
+**Changes:**
+
+- Use **multiple event data keys** to compose the sensor state, to support latest Hue v2 events (using `type,subtype` as 'event field', to generate sensor states like 'initial_press-1', 'long_release-2', etc.)
+- Add **new state mapping presets** for Hue Dimmer Switch and Hue Button working with new Hue Api v2
+- Require Home Assistant Core >= 2021.12.0 and Python >=3.9
+
 ## [v2.4.2](https://github.com/azogue/eventsensor/tree/v2.4.2) (2021-05-08)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v2.4.1...v2.4.2)

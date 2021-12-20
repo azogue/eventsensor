@@ -2,6 +2,7 @@
 ![HACS Validation](https://github.com/azogue/eventsensor/workflows/HACS%20Validation/badge.svg)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![pre-commit.ci Status](https://results.pre-commit.ci/badge/github/azogue/eventsensor/master.svg)](https://results.pre-commit.ci/latest/github/azogue/eventsensor/master)
 
 <br><a href="https://www.buymeacoffee.com/azogue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" width="150px" height="35px" alt="Buy Me A Coffee" style="height: 35px !important;width: 150px !important;" ></a>
 
@@ -38,7 +39,7 @@ Go to the Integrations menu, look for `EventSensor`, and start the wizard.
 1. Set a name for the sensor and a HA integration as source for the events to listen for.
   For _Friends of Hue_ remotes, select "Hue" or "deCONZ" to preconfigure the event sensor. Select "Any other" otherwise.
 2. If Hue or deCONZ are selected, use step 2 to set a unique identifier to filter events for an specific device. Leave that field empty to create a sensor showing button presses for all devices. 2 options are shown, filter by `id` or by `unique_id`:
-   * `id` is the _slugified_ version of the given name for the device, so for a Hue dimmer battery sensor named `sensor.hue_dimmer_kitchen_battery_level`, the `id` would be "hue_dimmer_kitchen".
+   * `id` is the _slugified_ version of the given name for the device, so for a Hue dimmer battery sensor named `sensor.hue_dimmer_kitchen_battery_level`, the `id` would be "hue_dimmer_kitchen_button".
    * `unique_id` is serial number of the device, (example: "00:17:88:01:10:3e:3a:dc-02-fc00").
 
    Last field is to select one of the pre-configured state mappings for Hue remotes. Set it as "Custom state mapping" to define your own.
