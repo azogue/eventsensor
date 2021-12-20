@@ -2,7 +2,6 @@
 import logging
 
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.const import CONF_EVENT, CONF_EVENT_DATA, CONF_NAME, CONF_STATE
 from homeassistant.core import callback
@@ -11,6 +10,9 @@ from homeassistant.helpers.event import EVENT_STATE_CHANGED
 from .common import (
     CONF_STATE_MAP,
     DOMAIN,
+    make_string_ui_from_dict,
+    make_unique_id,
+    parse_dict_from_ui_string,
     PRESET_AQARA_CUBE,
     PRESET_AQARA_CUBE_MAPPING,
     PRESET_AQARA_SMART_BUTTON,
@@ -23,9 +25,6 @@ from .common import (
     PRESET_HUE_DIMMER_MAPPING,
     PRESET_HUE_TAP,
     PRESET_HUE_TAP_MAPPING,
-    make_string_ui_from_dict,
-    make_unique_id,
-    parse_dict_from_ui_string,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -143,9 +142,7 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
         if user_input is not None:
             type_id = user_input.get(CONF_TYPE_IDENTIFIER)
             identifier = user_input.get(CONF_IDENTIFIER)
-            filter_map = {}
-            if identifier:
-                filter_map = {type_id: identifier}
+            filter_map = {type_id: identifier} if identifier else {}
             self._data_steps_config[CONF_EVENT_DATA] = filter_map
 
             preset_map = {}
@@ -225,8 +222,8 @@ class EventSensorOptionsFlowHandler(config_entries.OptionsFlow):
         """Manage the options."""
         if user_input is not None:
             # Inverse conversion for mappings shown as strings
-            for c in (CONF_EVENT_DATA, CONF_STATE_MAP):
-                user_input[c] = parse_dict_from_ui_string(user_input[c])
+            for conf in (CONF_EVENT_DATA, CONF_STATE_MAP):
+                user_input[conf] = parse_dict_from_ui_string(user_input[conf])
 
             new_unique_id = make_unique_id(user_input)
             if self.config_entry.unique_id != new_unique_id:

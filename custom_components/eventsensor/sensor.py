@@ -1,9 +1,8 @@
 """Event sensor."""
 import logging
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Optional
 
 import voluptuous as vol
-
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry, SOURCE_IMPORT
 from homeassistant.const import (
@@ -24,10 +23,10 @@ from homeassistant.helpers.typing import (
 )
 
 from .common import (
+    check_dict_is_contained_in_another,
     CONF_STATE_MAP,
     DOMAIN,
     DOMAIN_DATA,
-    check_dict_is_contained_in_another,
     extract_state_from_event,
     make_unique_id,
     parse_numbers,
@@ -206,7 +205,7 @@ class EventSensor(RestoreEntity):
         self._state_key = sensor_data[CONF_STATE]
         self._event_data = parse_numbers(sensor_data.get(CONF_EVENT_DATA, {}))
         self._state_map = parse_numbers(sensor_data.get(CONF_STATE_MAP, {}))
-        self._state = None
+        self._state: Optional[Any] = None
         self._attributes: Dict[str, Any] = {}
 
     @property
