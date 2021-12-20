@@ -20,9 +20,13 @@ from .common import (
     PRESET_FOH,
     PRESET_FOH_MAPPING,
     PRESET_HUE_BUTTON,
-    PRESET_HUE_BUTTON_MAPPING,
+    PRESET_HUE_BUTTON_MAPPING_V1,
+    PRESET_HUE_BUTTON_MAPPING_V2,
+    PRESET_HUE_BUTTON_V2,
     PRESET_HUE_DIMMER,
-    PRESET_HUE_DIMMER_MAPPING,
+    PRESET_HUE_DIMMER_MAPPING_V1,
+    PRESET_HUE_DIMMER_MAPPING_V2,
+    PRESET_HUE_DIMMER_V2,
     PRESET_HUE_TAP,
     PRESET_HUE_TAP_MAPPING,
 )
@@ -38,7 +42,7 @@ _EVENT_SOURCE_HUE = "Hue"
 _EVENT_SOURCE_DECONZ = "deCONZ"
 _EVENT_SOURCE_GENERIC = "Any other"
 _IDENTIFIER_ID = "id"
-_IDENTIFIER_UNIQUE_ID = "uniqueid"
+_IDENTIFIER_UNIQUE_ID = "unique_id"
 _PRESET_GENERIC = "Custom state mapping"
 
 STEP_1_INITIAL = vol.Schema(
@@ -55,10 +59,12 @@ STEP_2_PRECONFIGURED = vol.Schema(
             [_IDENTIFIER_ID, _IDENTIFIER_UNIQUE_ID]
         ),
         vol.Optional(CONF_IDENTIFIER, default=""): str,
-        vol.Required(CONF_PRESET_CONFIG, default=PRESET_HUE_DIMMER): vol.In(
+        vol.Required(CONF_PRESET_CONFIG, default=PRESET_HUE_DIMMER_V2): vol.In(
             [
+                PRESET_HUE_DIMMER_V2,
                 PRESET_HUE_DIMMER,
                 PRESET_HUE_TAP,
+                PRESET_HUE_BUTTON_V2,
                 PRESET_HUE_BUTTON,
                 PRESET_FOH,
                 PRESET_AQARA_SMART_BUTTON,
@@ -124,7 +130,7 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
             event_source = user_input.get(CONF_INTEGRATION)
             if event_source == _EVENT_SOURCE_HUE:
                 self._data_steps_config[CONF_EVENT] = "hue_event"
-                self._data_steps_config[CONF_STATE] = "event"
+                self._data_steps_config[CONF_STATE] = "type,subtype"
 
             elif event_source == _EVENT_SOURCE_DECONZ:
                 self._data_steps_config[CONF_EVENT] = "deconz_event"
@@ -148,11 +154,17 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
             preset_map = {}
             preset_config = user_input.get(CONF_PRESET_CONFIG)
             if preset_config == PRESET_HUE_DIMMER:
-                preset_map = PRESET_HUE_DIMMER_MAPPING
+                preset_map = PRESET_HUE_DIMMER_MAPPING_V1
+                self._data_steps_config[CONF_STATE] = "event"
+            elif preset_config == PRESET_HUE_DIMMER_V2:
+                preset_map = PRESET_HUE_DIMMER_MAPPING_V2
             elif preset_config == PRESET_HUE_TAP:
                 preset_map = PRESET_HUE_TAP_MAPPING
             elif preset_config == PRESET_HUE_BUTTON:
-                preset_map = PRESET_HUE_BUTTON_MAPPING
+                preset_map = PRESET_HUE_BUTTON_MAPPING_V1
+                self._data_steps_config[CONF_STATE] = "event"
+            elif preset_config == PRESET_HUE_BUTTON_V2:
+                preset_map = PRESET_HUE_BUTTON_MAPPING_V2
             elif preset_config == PRESET_FOH:
                 preset_map = PRESET_FOH_MAPPING
             elif preset_config == PRESET_AQARA_SMART_BUTTON:
