@@ -1,6 +1,6 @@
 ![Validate with hassfest](https://github.com/azogue/eventsensor/workflows/Validate%20with%20hassfest/badge.svg)
 ![HACS Validation](https://github.com/azogue/eventsensor/workflows/HACS%20Validation/badge.svg)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![pre-commit.ci Status](https://results.pre-commit.ci/badge/github/azogue/eventsensor/master.svg)](https://results.pre-commit.ci/latest/github/azogue/eventsensor/master)
 
