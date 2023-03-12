@@ -31,7 +31,7 @@ from .common import (
     PRESET_HUE_TAP_MAPPING,
 )
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger("eventsensor")
 
 CONF_PRESET_CONFIG = "preset_config"
 CONF_INTEGRATION = "integration_source"
