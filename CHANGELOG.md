@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.1.0](https://github.com/azogue/eventsensor/tree/v3.1.0) (2023-03-12)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v3.0.0...v3.1.0)
+
+**Changes:**
+
+- Sort `manifest.json` keys and declare `integration_type=entity`
+- Update pre-commit config and apply lint fixes
+- Require Home Assistant Core >= 2022.12.0
+
 ## [v3.0.0](https://github.com/azogue/eventsensor/tree/v3.0.0) (2021-12-20)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v2.4.2...v3.0.0)
