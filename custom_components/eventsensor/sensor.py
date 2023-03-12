@@ -133,10 +133,13 @@ async def update_listener(hass: HomeAssistantType, entry: ConfigEntry):
 class EventSensorDispatcher:
     """Dispatcher for EventSensors."""
 
+    _listeners: Dict[str, Callable[[], None]]
+    _filters: Dict[str, Dict[str, Any]]
+
     def __init__(self):
         """Set up the event sensor dispatcher."""
-        self._listeners: Dict[str, Callable[[], None]] = {}
-        self._filters: Dict[str, Dict[str, Any]] = {}
+        self._listeners = {}
+        self._filters = {}
 
     async def async_add_entry(
         self,
