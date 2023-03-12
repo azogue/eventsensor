@@ -32,7 +32,7 @@ from .common import (
     parse_numbers,
 )
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger("eventsensor")
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
