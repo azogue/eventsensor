@@ -4,8 +4,8 @@
     "codeowners": [
         "@azogue"
     ],
-    "dependencies": [],
     "config_flow": true,
+    "dependencies": [],
     "documentation": "https://github.com/azogue/eventsensor",
     "integration_type": "entity",
     "iot_class": "calculated",
