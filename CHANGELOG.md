@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.2.0](https://github.com/azogue/eventsensor/tree/v3.2.0) (2023-05-13)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v3.1.0...v3.2.0)
+
+**Changes:**
+- 🐛 Fix integration missing in GUI (#54) (because of `integration_type: entity`?), and update keys in HACS file
+- ♻️ Update code to follow recent HA guidelines
+- 🎨 Use ruff in pre-commit instead of flake8
+- 📦️ Bump version and require recent HA-Core (>= 2023.5.0), deprecating python3.9 and earlier HA-Core versions
+
 ## [v3.1.0](https://github.com/azogue/eventsensor/tree/v3.1.0) (2023-03-12)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v3.0.0...v3.1.0)
