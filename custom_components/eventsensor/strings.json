@@ -1,5 +1,9 @@
 {
   "config": {
+    "abort": {
+      "already_configured": "A sensor for that specific event data is already configured",
+      "forbidden_event": "This sensor for events can't listen to `state_changed`"
+    },
     "step": {
       "user": {
         "title": "EventSensor - new",
@@ -35,10 +39,6 @@
           "state_map": "Desired mapping for the sensor states"
         }
       }
-    },
-    "abort": {
-      "already_configured": "A sensor for that specific event data is already configured",
-      "forbidden_event": "This sensor for events can't listen to `state_changed`"
     }
   },
   "options": {

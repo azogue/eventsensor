@@ -6,7 +6,6 @@ from homeassistant.util import slugify
 
 # Base component constants
 DOMAIN = "eventsensor"
-PLATFORM = "sensor"
 DOMAIN_DATA = f"{DOMAIN}_data"
 
 CONF_STATE_MAP = "state_map"

@@ -84,12 +84,10 @@ STEP_2_GENERIC_SCHEMA = vol.Schema(
 )
 
 
-@config_entries.HANDLERS.register(DOMAIN)
-class EventSensorFlowHandler(config_entries.ConfigFlow):
+class EventSensorFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Config flow for eventsensor."""
 
     VERSION = 1
-    CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_PUSH
 
     def __init__(self):
         """Initialize."""
@@ -219,16 +217,12 @@ class EventSensorFlowHandler(config_entries.ConfigFlow):
         return EventSensorOptionsFlowHandler(config_entry)
 
 
-class EventSensorOptionsFlowHandler(config_entries.OptionsFlow):
+class EventSensorOptionsFlowHandler(config_entries.OptionsFlowWithConfigEntry):
     """
     Handle the Options flow for `eventsensor` to edit the configuration.
 
     **entry.options is used as a container to make changes over entry.data**
     """
-
-    def __init__(self, config_entry: config_entries.ConfigEntry):
-        """Initialize the options flow handler with the config entry to modify."""
-        self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
