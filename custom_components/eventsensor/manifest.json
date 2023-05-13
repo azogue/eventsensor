@@ -1,16 +1,14 @@
 {
     "domain": "eventsensor",
-    "name": "EventSensor",
+    "name": "Event sensor",
     "codeowners": [
         "@azogue"
     ],
     "config_flow": true,
-    "dependencies": [],
     "documentation": "https://github.com/azogue/eventsensor",
-    "integration_type": "entity",
+    "integration_type": "device",
     "iot_class": "calculated",
     "issue_tracker": "https://github.com/azogue/eventsensor/issues",
     "loggers": ["eventsensor"],
-    "requirements": [],
     "version": "3.1.0"
 }
