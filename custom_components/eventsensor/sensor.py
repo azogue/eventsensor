@@ -14,11 +14,12 @@ from homeassistant.const import (
 )
 from homeassistant.core import callback
 from homeassistant.helpers.config_validation import string
-from homeassistant.helpers.event import Event
+from homeassistant.helpers.event import EventStateChangedData
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import (
     ConfigType,
     DiscoveryInfoType,
+    EventType,
     HomeAssistantType,
 )
 
@@ -147,7 +148,7 @@ class EventSensorDispatcher:
         entry_id: str,
         event_type: str,
         event_data_filter: Dict[str, Any],
-        callback_update_sensor: Callable[[Event], None],
+        callback_update_sensor: Callable[[EventType[EventStateChangedData]], None],
     ) -> None:
         """Add event listener when adding entity to Home Assistant."""
         if event_type not in self._filters:
@@ -161,7 +162,7 @@ class EventSensorDispatcher:
         )
 
         @callback
-        def async_dispatch_by_event_type(event: Event):
+        def async_dispatch_by_event_type(event: EventType[EventStateChangedData]):
             """Dispatch sensor updates when event is received."""
             for ev_filter, cb_sensor in self._filters[event.event_type].values():
                 if check_dict_is_contained_in_another(ev_filter, event.data):
@@ -240,7 +241,7 @@ class EventSensor(RestoreEntity):
             self._attributes = dict(last_state.attributes)
 
         @callback
-        def async_update_sensor(event: Event):
+        def async_update_sensor(event: EventType[EventStateChangedData]):
             """Update state when a valid event is received."""
             # Extract new state
             if "," in self._state_key:
