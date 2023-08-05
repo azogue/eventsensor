@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "eventsensor"
-version = "3.2.0"
+version = "3.3.0"
 description = "HomeAssistant custom sensor to track specific events"
 authors = ["Eugenio Panadero <eugenio.panadero@gmail.com>"]
 license = "MIT"
@@ -8,8 +8,8 @@ readme = "README.md"
 repository = "https://github.com/azogue/eventsensor"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-homeassistant = ">=2023.5.0"
+python = ">=3.11,<4.0"
+homeassistant = ">=2023.8.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = ">=2.2.0"
@@ -20,7 +20,7 @@ line_length = 88
 
 [tool.black]
 line_length = 88
-target_version = ["py310"]
+target_version = ["py311"]
 
 
 [build-system]
