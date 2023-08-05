@@ -12,9 +12,8 @@ from homeassistant.const import (
     CONF_STATE,
     EVENT_STATE_CHANGED,
 )
-from homeassistant.core import callback
+from homeassistant.core import callback, Event
 from homeassistant.helpers.config_validation import string
-from homeassistant.helpers.event import Event
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import (
     ConfigType,
