@@ -1,0 +1,59 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Senzor pre tieto špecifické údaje udalosti je už nakonfigurovaný",
+            "forbidden_event": "Tento senzor udalostí nemôže počúvať `state_changed`"
+        },
+        "step": {
+            "generic": {
+                "data": {
+                    "event": "Názov udalosti na počúvanie",
+                    "event_data": "Filtrovať s `key: value` párov v dátach udalosti",
+                    "state": "Pole udalosti, ktoré sa má použiť ako senzor `state`",
+                    "state_map": "Požadované mapovanie stavov snímača"
+                },
+                "description": "Definujte vlastný poslucháč udalostí nastavením:\n\n* Názov udalosti\n* Pole(ia! udalosti `key`, `key.sub_key`, alebo `key1,key2` použiť ako stav snímača\n* Voliteľné `key: value` párov v údajoch udalostí na filtrovanie konkrétnych udalostí\n* Voliteľné vlastné mapovanie stavov senzorov\n\nAk chcete definovať vlastné mapovanie, uveďte ho ako páry medzi čiarkami, napríklad:\n**`code: state1, code2: state2, code3: state3`**\nUrobte to isté pre filter údajov udalosti, **v prípade potreby použite zložené zátvorky pre vnorené diktáty**",
+                "title": "EventSensor – Všeobecná definícia"
+            },
+            "preset": {
+                "data": {
+                    "identifier": "Jedinečný identifikátor pre udalosti spustenia zariadenia (pre všetky zariadenia ponechajte prázdne)",
+                    "preset_config": "Vyberte jedno z vopred nakonfigurovaných mapovaní stavu alebo definujte všeobecné",
+                    "type_identifier": "Vyberte pole identifikátora používané na filtrovanie udalostí pre konkrétne diaľkové ovládanie"
+                },
+                "description": "* Pridajte jedinečný identifikátor na filtrovanie udalostí súvisiacich s konkrétnym diaľkovým ovládaním.\n* Vyberte predkonfigurované mapovanie pre vlastné stavy alebo definujte nové",
+                "title": "EventSensor - Poslucháč pre diaľkové ovládanie FoH"
+            },
+            "state_mapping": {
+                "data": {
+                    "state_map": "Požadované mapovanie pre stav snímača ako `raw_data: pretty_state,` páry."
+                },
+                "description": "* Skontrolujte alebo upravte mapovanie stavu pre tento senzor, alebo ho ponechajte prázdne, ak nechcete použiť žiadne špeciálne mapovanie stavu.\n\nAk chcete definovať vlastné mapovanie, uveďte ho ako páry medzi čiarkami, napríklad:\n**`code: state1, code2: state2, code3: state3`**",
+                "title": "EventSensor – vlastné mapovanie stavu"
+            },
+            "user": {
+                "data": {
+                    "integration_source": "Integračné spúšťacie udalosti, ktoré treba počúvať",
+                    "name": "Názov pre nové udalosti sledovania senzorov"
+                },
+                "description": "Vytvorte **senzorovú entitu** na zobrazenie stavu a atribútov pre poslednú spustenú udalosť nejakého druhu.\n\n* Nastavte názov pre nový senzor\n* Vyberte konkrétny zdroj integrácie pre udalosti, ktoré chcete počúvať, alebo vyberte 'Any other' na definovanie všeobecného poslucháča udalostí.",
+                "title": "EventSensor – Novinka"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "event": "Názov udalosti na počúvanie",
+                    "event_data": "Voliteľný filter udalostí s `key: value` párov v dátach udalosti",
+                    "name": "Názov snímača",
+                    "state": "Pole udalosti, ktoré sa má použiť ako senzor `state`",
+                    "state_map": "Voliteľné vlastné mapovanie stavu"
+                },
+                "description": "Upravte prijímač udalostí senzora zmenou:\n\n* Názov snímača\n* Názov udalosti\n* Pole(ia) udalosti `key`, `key.sub_key`, alebo `key1,key2` použiť ako stav snímača\n* Voliteľné `key: value` párov v údajoch udalostí na filtrovanie konkrétnych udalostí\n* Voliteľné vlastné mapovanie stavov senzorov\n\nAk chcete definovať vlastné mapovanie, uveďte ho ako páry medzi čiarkami, napríklad:\n**`code: state1, code2: state2, code3: state3`**\nUrobte to isté pre filter údajov udalostí, **v prípade potreby použite zložené zátvorky pre vnorené diktáty**",
+                "title": "EventSensor – Upravte senzor"
+            }
+        }
+    }
+}
