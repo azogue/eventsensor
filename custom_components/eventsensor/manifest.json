@@ -10,5 +10,5 @@
     "iot_class": "calculated",
     "issue_tracker": "https://github.com/azogue/eventsensor/issues",
     "loggers": ["eventsensor"],
-    "version": "3.1.0"
+    "version": "3.3.1"
 }
