@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "eventsensor"
-version = "3.3.0"
+version = "3.3.1"
 description = "HomeAssistant custom sensor to track specific events"
 authors = ["Eugenio Panadero <eugenio.panadero@gmail.com>"]
 license = "MIT"

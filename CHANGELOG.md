@@ -1,5 +1,14 @@
 # Changelog
 
+## [v3.3.1](https://github.com/azogue/eventsensor/tree/v3.3.1) (2023-11-23)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v3.3.0...v3.3.1)
+
+**Changes:**
+- 🎨 [pre-commit.ci] pre-commit autoupdate
+- 🌐 Add Slovak (sk) translations (from @misa1515 in #65)
+- 🚀 Bump patch version and update CHANGELOG
+
 ## [v3.3.0](https://github.com/azogue/eventsensor/tree/v3.3.0) (2023-08-05)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v3.2.0...v3.3.0)
