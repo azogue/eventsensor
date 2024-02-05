@@ -1,4 +1,5 @@
 """Constants for eventsensor."""
+
 import re
 
 from homeassistant.const import CONF_EVENT, CONF_EVENT_DATA, CONF_STATE

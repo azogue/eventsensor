@@ -1,4 +1,5 @@
 """Adds config flow for eventsensor."""
+
 import logging
 
 import voluptuous as vol
