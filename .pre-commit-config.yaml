@@ -1,4 +1,4 @@
-minimum_pre_commit_version: "2.10.0"
+minimum_pre_commit_version: "3.0.4"
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.10
@@ -6,18 +6,7 @@ repos:
       - id: ruff
         args:
           - --fix
-  - repo: https://github.com/pycqa/isort
-    rev: 6.0.1
-    hooks:
-      - id: isort
-        name: isort (python)
-        args:
-          - --dont-order-by-type
-  - repo: https://github.com/psf/black
-    rev: "25.1.0"
-    hooks:
-      - id: black
-        name: Format code (black)
+      - id: ruff-format
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v5.0.0"
     hooks:
