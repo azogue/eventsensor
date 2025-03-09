@@ -13,14 +13,10 @@ from homeassistant.const import (
     CONF_STATE,
     EVENT_STATE_CHANGED,
 )
-from homeassistant.core import callback, Event
+from homeassistant.core import callback, Event, HomeAssistant
 from homeassistant.helpers.config_validation import string
 from homeassistant.helpers.restore_state import RestoreEntity
-from homeassistant.helpers.typing import (
-    ConfigType,
-    DiscoveryInfoType,
-    HomeAssistantType,
-)
+from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 from .common import (
     check_dict_is_contained_in_another,
@@ -47,7 +43,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 
 async def async_setup_platform(
-    hass: HomeAssistantType,
+    hass: HomeAssistant,
     config: ConfigType,
     async_add_entities: Callable[[List[Any], bool], None],
     discovery_info: DiscoveryInfoType = None,
@@ -83,7 +79,7 @@ async def async_setup_platform(
 
 
 async def async_setup_entry(
-    hass: HomeAssistantType,
+    hass: HomeAssistant,
     config_entry: ConfigEntry,
     async_add_entities: Callable[[List[Any], bool], None],
 ):
@@ -112,7 +108,7 @@ async def async_setup_entry(
     )
 
 
-async def update_listener(hass: HomeAssistantType, entry: ConfigEntry):
+async def update_listener(hass: HomeAssistant, entry: ConfigEntry):
     """Update when config_entry options update."""
     changes = len(entry.options) > 1 and entry.data != entry.options
     if changes:
@@ -143,7 +139,7 @@ class EventSensorDispatcher:
 
     async def async_add_entry(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry_id: str,
         event_type: str,
         event_data_filter: Dict[str, Any],
