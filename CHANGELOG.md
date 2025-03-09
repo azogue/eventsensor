@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.4.0](https://github.com/azogue/eventsensor/tree/v3.4.0) (2025-03-09)
+
+[Full Changelog](https://github.com/azogue/eventsensor/compare/v3.3.1...v3.4.0)
+
+**Changes:**
+
+- 🎨 [pre-commit.ci] pre-commit autoupdate
+- 🎨 lint: pre-commit auto-update & rm flake8 config
+- 🐛 **Fix import of `HomeAssistantType` after HA-Core v2025.5** (#73)
+- 📦️ Migrate dev-env from poetry to uv, bumping minor version, and update CHANGELOG
+
 ## [v3.3.1](https://github.com/azogue/eventsensor/tree/v3.3.1) (2023-11-23)
 
 [Full Changelog](https://github.com/azogue/eventsensor/compare/v3.3.0...v3.3.1)
