@@ -1,11 +1,12 @@
 """Event sensor."""
 
 import logging
-from typing import Any, Callable, Dict, List, Optional
+from collections.abc import Callable
+from typing import Any
 
 import voluptuous as vol
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.config_entries import ConfigEntry, SOURCE_IMPORT
+from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import (
     CONF_EVENT,
     CONF_EVENT_DATA,
@@ -13,16 +14,16 @@ from homeassistant.const import (
     CONF_STATE,
     EVENT_STATE_CHANGED,
 )
-from homeassistant.core import callback, Event, HomeAssistant
+from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.config_validation import string
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 from .common import (
-    check_dict_is_contained_in_another,
     CONF_STATE_MAP,
     DOMAIN,
     DOMAIN_DATA,
+    check_dict_is_contained_in_another,
     extract_state_from_event,
     make_unique_id,
     parse_numbers,
@@ -45,7 +46,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
-    async_add_entities: Callable[[List[Any], bool], None],
+    async_add_entities: Callable[[list[Any], bool], None],
     discovery_info: DiscoveryInfoType = None,
 ):
     """
@@ -81,7 +82,7 @@ async def async_setup_platform(
 async def async_setup_entry(
     hass: HomeAssistant,
     config_entry: ConfigEntry,
-    async_add_entities: Callable[[List[Any], bool], None],
+    async_add_entities: Callable[[list[Any], bool], None],
 ):
     """Set up the component sensors from a config entry."""
     if DOMAIN_DATA not in hass.data:
@@ -129,8 +130,8 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry):
 class EventSensorDispatcher:
     """Dispatcher for EventSensors."""
 
-    _listeners: Dict[str, Callable[[], None]]
-    _filters: Dict[str, Dict[str, Any]]
+    _listeners: dict[str, Callable[[], None]]
+    _filters: dict[str, dict[str, Any]]
 
     def __init__(self):
         """Set up the event sensor dispatcher."""
@@ -142,7 +143,7 @@ class EventSensorDispatcher:
         hass: HomeAssistant,
         entry_id: str,
         event_type: str,
-        event_data_filter: Dict[str, Any],
+        event_data_filter: dict[str, Any],
         callback_update_sensor: Callable[[Event], None],
     ) -> None:
         """Add event listener when adding entity to Home Assistant."""
@@ -192,7 +193,7 @@ class EventSensor(RestoreEntity):
         self,
         entry_id: str,
         unique_id: str,
-        sensor_data: Dict[str, Any],
+        sensor_data: dict[str, Any],
         dispatcher: EventSensorDispatcher,
     ):
         """Set up a new sensor mirroring some event."""
@@ -204,8 +205,8 @@ class EventSensor(RestoreEntity):
         self._state_key = sensor_data[CONF_STATE]
         self._event_data = parse_numbers(sensor_data.get(CONF_EVENT_DATA, {}))
         self._state_map = parse_numbers(sensor_data.get(CONF_STATE_MAP, {}))
-        self._state: Optional[Any] = None
-        self._attributes: Dict[str, Any] = {}
+        self._state: Any | None = None
+        self._attributes: dict[str, Any] = {}
 
     @property
     def name(self):
