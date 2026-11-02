@@ -11,9 +11,6 @@ from homeassistant.helpers.event import EVENT_STATE_CHANGED
 from .common import (
     CONF_STATE_MAP,
     DOMAIN,
-    make_string_ui_from_dict,
-    make_unique_id,
-    parse_dict_from_ui_string,
     PRESET_AQARA_CUBE,
     PRESET_AQARA_CUBE_MAPPING,
     PRESET_AQARA_SMART_BUTTON,
@@ -30,6 +27,9 @@ from .common import (
     PRESET_HUE_DIMMER_V2,
     PRESET_HUE_TAP,
     PRESET_HUE_TAP_MAPPING,
+    make_string_ui_from_dict,
+    make_unique_id,
+    parse_dict_from_ui_string,
 )
 
 _LOGGER = logging.getLogger("eventsensor")
